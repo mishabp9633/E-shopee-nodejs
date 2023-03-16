@@ -1,10 +1,9 @@
-import { CreateGuestDto, CreateUserDto, LoginWithMobileDto, SignUpWithMobileDto, VerifyOtpDto } from '@dtos/users.dto';
+import { CreateUserDto } from '@dtos/users.dto';
 import { User } from '@/interfaces/user.interface';
 import userModel from '../models/user.model';
 import { HttpException } from '../exceptions/HttpException'
 import jwt from 'jsonwebtoken';
 import bcrypt from "bcryptjs";
-import crypto from 'crypto';
 
 
 class AuthService {
