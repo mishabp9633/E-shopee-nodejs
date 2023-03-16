@@ -5,15 +5,13 @@ import { HttpException } from '../exceptions/HttpException'
 import jwt from 'jsonwebtoken';
 import bcrypt from "bcryptjs";
 
-
 class AuthService {
   public users = userModel;
 
   public async registerWithMail(userData: CreateUserDto): Promise<any> {
     const findUser: User = await this.users.findOne({ email: userData.email })
     if (!findUser) {
-      
-      const user: User = await this.users.create({ ...userData });
+      const user: User = await this.users.create({ ...userData })
        
       // Create Jwt token
       const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {

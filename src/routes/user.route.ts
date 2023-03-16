@@ -1,19 +1,18 @@
-import { Router } from 'express';
 import UsersController from '@/controllers/user/user-user.controller';
 import UsersAdminController from '@/controllers/admin/admin-user.controller';
 import { UpdateUserByAdminDto, UpdateUserDto } from '@dtos/users.dto';
-import { Routes } from '@interfaces/routes.interface';
+import { BaseRoute, Routes } from '@interfaces/routes.interface';
 import validationMiddleware from '@middlewares/validation.middleware';
 import { authorizeRoles } from '@/middlewares/singleAuthCheck.middlware';
 import { ROLE } from '@/models/user.model';
 
-class UserRoute implements Routes {
+class UserRoute extends BaseRoute implements Routes{
   public path = '/user';
-  public router = Router();
   public usersController = new UsersController();
   public usersAdminController = new UsersAdminController();
 
   constructor() {
+    super()
     this.initializeRoutes();
   }
 

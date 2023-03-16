@@ -1,11 +1,10 @@
 import _ from 'lodash'
 import { toNumber } from 'lodash'
-import { UpdateUserByAdminDto, UpdateUserDto, USER_CUSTOM } from '@dtos/users.dto';
+import { UpdateUserByAdminDto } from '@dtos/users.dto';
 import { HttpException } from '@exceptions/HttpException';
 import { User } from '@/interfaces/user.interface';
-import userModel, { ROLE } from '@/models/user.model';
+import userModel from '@/models/user.model';
 import { isEmpty } from '@utils/util';
-import mongoose from 'mongoose';
 
 class AdminUserService {
   public user = userModel;
@@ -48,7 +47,6 @@ class AdminUserService {
 
     return user
   }
-
 }
 
 export default AdminUserService;
