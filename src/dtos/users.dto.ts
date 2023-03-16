@@ -2,43 +2,19 @@ import { ROLE } from '@/models/user.model';
 import { IsOptional, IsString, IsNotEmpty, IsEnum, IsBoolean } from 'class-validator';
 
 export enum USER_CUSTOM {
-  ALL = 'all',
   USER = 'user',
-  PRIME_USER = 'prime-user',
-  STORE_ADMIN = 'store-admin',
   ADMIN = 'admin',
 }
 
-export class SignUpWithMobileDto {
-  @IsNotEmpty()
-  @IsString()
-  public phone: string;
-
-  @IsOptional()
-  @IsString()
-  public referalCode?: string;
-}
-
-export class VerifyOtpDto {
-  @IsNotEmpty()
-  @IsString()
-  public userId: string;
-
-  @IsNotEmpty()
-  @IsString()
-  public otp: string;
-}
-
-export class LoginWithMobileDto {
-  @IsNotEmpty()
-  @IsString()
-  public phone: string;
-}
 
 export class CreateUserDto {
   @IsOptional()
   @IsString()
-  public name?: string;
+  public firstname?: string;
+
+  @IsOptional()
+  @IsString()
+  public lasstname?: string;
 
   @IsOptional()
   @IsString()

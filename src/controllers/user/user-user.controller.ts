@@ -30,18 +30,6 @@ class UserController {
     }
   };
 
-  public getUserByFirebaseId = async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      const userId: string = req.body.firebaseUid;
-      const findOneUserData: User = await this.userService.findUserByFirebaseId(userId);
-
-      res.status(200).json(findOneUserData);
-    } catch (error) {
-      console.log('error', error)
-      next(error);
-    }
-  };
-
   public getUserByToken = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const userId: string = req.body.user._id;      
@@ -76,8 +64,7 @@ class UserController {
     } catch (error) {
       next(error);
     }
-  };
-  
+  }; 
 }
 
 export default UserController;

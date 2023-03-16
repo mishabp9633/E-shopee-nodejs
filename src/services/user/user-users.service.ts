@@ -9,13 +9,6 @@ import { isEmpty } from '@utils/util';
 class UserUserService {
   public user = userModel;
 
-  public async findUserByFirebaseId(firebaseUid: string): Promise<User> {
-    console.log(`Firebase user id is ${firebaseUid}`)
-    const user = await this.user.findOne({ firebaseUid })
-    if (!user) throw new Error('User not found with firebaseUid')
-    return user;
-  }
-
   public async findUserByEmail(email: string): Promise<any> {
     const user = await this.user.findOne({ email: email })
     // if (!user) throw new Error('User not found with firebaseUid')
@@ -62,6 +55,7 @@ class UserUserService {
     return updateUserById;
   }
 
+  
   public async deleteUser(userId: string): Promise<User> {
     const deleteUserById: User = await this.user.findByIdAndDelete(userId);
     if (!deleteUserById) throw new HttpException(409, "You're not user");

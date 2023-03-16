@@ -7,7 +7,10 @@ export enum ROLE {
 }
 
 export const userSchema: Schema = new Schema({
-  name: {
+  firstName: {
+    type: String,
+  },
+  lastName: {
     type: String,
   },
   phone: {
@@ -42,10 +45,6 @@ export const userSchema: Schema = new Schema({
   lastLogin:{
     type: Date
   },
-  otp: String,
-  otpExpiry: Date,
-  // otpSessionToken: String,
-  // otpSessionExpire: Date,
   resetPasswordToken: String,
   resetPasswordExpire: Date
 },
