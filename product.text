@@ -1,0 +1,38 @@
+{
+    "name":"Mattress",
+    "description":"High Grade Pillows",
+    "productID": "ZES01",
+    "category": "619bcec3180cf95748029927",
+    "specs": [
+        {
+            "title": "Quality",
+            "details": "High Grade"
+        },
+        {
+            "title": "Warrenty",
+            "details": "2 years"
+        }
+    ],
+    "color": {
+        "name": "White",
+        "value": "#ffffff"
+    },
+    "dealerPrice": 1250
+}
+
+const dailyTotal = await zestonProduct.aggregate([
+      {$match:
+        { $expr: {
+            $and: [
+              {
+                $gte: [ "$createdAt", { $dateFromString: { dateString: today_date,  format: "%Y-%m-%d" }}]
+              },
+              {
+                $lte: [ "$createdAt", { $dateFromString: { dateString: tomorrow_date, format: "%Y-%m-%d" }}]
+              }
+            ]
+          }
+        }
+      },
+    { $group: {_id:'', dailyTotal: {$sum:'$totalPrice'}}}
+  ])
