@@ -1,11 +1,21 @@
 import { ROLE } from '@/models/user.model';
-import { IsOptional, IsString, IsNotEmpty, IsEnum, IsBoolean } from 'class-validator';
+import { IsOptional, IsString, IsNotEmpty, IsEnum, IsBoolean, Validate } from 'class-validator';
 
 export enum USER_CUSTOM {
   USER = 'user',
   ADMIN = 'admin',
 }
 
+class MatchConstraint {
+  validate(value: any, { object }: any) {
+    const confirmPassword = object.confirmPassword;
+    return !confirmPassword || value === confirmPassword;
+  }
+
+  defaultMessage() {
+    return 'Passwords do not match';
+  }
+}
 
 export class CreateUserDto {
   @IsOptional()
@@ -108,9 +118,11 @@ export class ForgotUserPasswordDto {
 export class ResetUserPasswordDto {
   @IsNotEmpty()
   @IsString()
-  public newPassword: string;
+  public password: string;
 
-  @IsOptional()
+  @IsNotEmpty()
   @IsString()
+  @Validate(MatchConstraint)
   public confirmPassword: string;
 }
+

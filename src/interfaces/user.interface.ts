@@ -11,12 +11,8 @@ export interface User extends Document {
   role: ROLE;
   token?: string;
   isVerified: Boolean;
-  otp: string;
-  otpExpiry: Date;
   lastLogin: Date;
   
-  // otpSessionKey: String,
-  // otpSessionExpire: Date,
   resetPasswordToken: string;
-  resetPasswordExpire: Date;
+  resetPasswordExpires: number;
 }

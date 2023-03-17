@@ -1,8 +1,7 @@
-import { Router } from 'express';
 import AuthController from '@controllers/auth.controller';
 import { BaseRoute, Routes } from '@interfaces/routes.interface';
 import validationMiddleware from '@/middlewares/validation.middleware';
-import { CreateUserDto, LoginUserDto} from '@/dtos/users.dto';
+import { CreateUserDto, ForgotUserPasswordDto, LoginUserDto, ResetUserPasswordDto} from '@/dtos/users.dto';
 import { authorizeRoles } from '@/middlewares/singleAuthCheck.middlware';
 import { ROLE } from '@/models/user.model';
 
@@ -23,9 +22,8 @@ class AuthRoute extends BaseRoute implements Routes  {
     this.router.get(`${this.path}logout`, authorizeRoles([ROLE.USER]),  this.authController.logout);
     this.router.get(`${this.path}me`, authorizeRoles([ROLE.USER]), this.authController.getuserProfile);
 
-    // this.router.post(`${this.path}password/update`, validationMiddleware(UpdateUserPasswordDto, 'body', false),  userAuthMiddleware,this.authController.updatePassword);
-    // this.router.post(`${this.path}forgot`, validationMiddleware(ForgotUserPasswordDto, 'body', false), this.authController.forgotPassword);
-    // this.router.post(`${this.path}password/reset/:token`, validationMiddleware(ResetUserPasswordDto, 'body', false), this.authController.resetPassword);
+    this.router.post(`${this.path}forgot`, validationMiddleware(ForgotUserPasswordDto, 'body', false), this.authController.forgotPassword);
+    this.router.post(`${this.path}password/reset/:id`, validationMiddleware(ResetUserPasswordDto, 'body', false), this.authController.resetPassword);
 
     //admin
     this.router.post(`${this.path}admin/login`, validationMiddleware(LoginUserDto, 'body', false), this.authController.adminLogin);

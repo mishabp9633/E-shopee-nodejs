@@ -46,8 +46,9 @@ export const userSchema: Schema = new Schema({
     type: Date
   },
   resetPasswordToken: String,
-  resetPasswordExpire: Date
+  resetPasswordExpires: Number
 },
+
   {
     timestamps: true
   });
@@ -55,3 +56,16 @@ export const userSchema: Schema = new Schema({
 const userModel = model<User & Document>('User', userSchema);
 
 export default userModel;
+
+
+// resetToken:{
+//   type:String
+//     },
+
+//     resetPasswordToken:{
+//       type:String
+//     },
+
+//     resetPasswordExpires:{
+//       type:Number
+//     },
