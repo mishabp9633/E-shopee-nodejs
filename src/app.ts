@@ -24,7 +24,7 @@ import { CloudinaryResource } from './cloudinary-resource';
 
 class App {
   public app: express.Application;
-  public port: string | number;
+  public port: string | number 
   public env: string;
 
   constructor(routes: Routes[]) {
@@ -59,16 +59,16 @@ class App {
   }
 
   private async connectToDatabase() {
-
-    if (Env.STAGE !== STAGE.PRODUCTION) {
-      set('debug', true);
-    }
+try {
+  if (Env.STAGE !== STAGE.PRODUCTION) {
+    set('debug', true);
+  }
 // dbConnection.options
-    await connect(dbConnection.url).catch(err => {
-      console.log(err);
-    });
-
-    console.log('mongod connected');
+  await connect(dbConnection.url)
+    console.log('mongod connected')
+} catch (error) {
+  console.log(error);
+}
   }
 
   private configCloudinary() {
