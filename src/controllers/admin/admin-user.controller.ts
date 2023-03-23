@@ -18,29 +18,6 @@ class UsersAdminController {
     }
   };
   
-  public getRawUsers = async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      const query = req.query;
-      const findAllUsersData = await this.userService.findAllRawUsers(query);
-      res.status(200).json(findAllUsersData);
-    } catch (error) {
-      next(error);
-    }
-  };
-
-  public getCustomUsers = async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      const query = req.query;
-      const page: string = req.query.page as string;
-      const limit: string = (req.query.limit || '10') as string;
-      const custom = req.params.custom;
-      const findAllUsersData = await this.userService.findAllCustomUsers(page,limit,custom,query);
-      res.status(200).json(findAllUsersData);
-    } catch (error) {
-      next(error);
-    }
-  };
-  
   public updateUser = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const userId: string = req.params.id;
