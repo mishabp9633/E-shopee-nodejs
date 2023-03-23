@@ -12,7 +12,7 @@ class UserUserService {
   public async findUserByEmail(email: string): Promise<any> {
     const user = await this.user.findOne({ email: email })
     // if (!user) throw new Error('User not found with firebaseUid')
-    return (user && user.email ? true : false);
+    return (user && user.email ? true : false)
   }
 
   public async findUserById(userId: string): Promise<User> {
