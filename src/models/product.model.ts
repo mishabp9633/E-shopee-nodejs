@@ -27,7 +27,7 @@ export const productSchema: Schema = new Schema(
     brand: {
       type: String,
     },
-    image: {
+    images: {
       public_id: {
         type: String,
       },

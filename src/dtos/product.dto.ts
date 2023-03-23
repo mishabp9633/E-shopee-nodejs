@@ -21,9 +21,9 @@ export class CreateProductDto {
     @IsString()
     public brand: string;
 
-    @IsOptional()
-    @IsString()
-    public image: Photo;
+    // @IsOptional()
+    // @IsString()
+    // public image: Photo;
 
 
   }

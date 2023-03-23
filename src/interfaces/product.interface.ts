@@ -7,7 +7,7 @@ export interface Product extends Document {
   price?: Price;
   isActive: Boolean;
   brand?: string;
-  image?:Photo
+  // image?:Photo
   
   resetPasswordToken: string;
   resetPasswordExpires: number;
