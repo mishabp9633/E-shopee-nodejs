@@ -7,6 +7,8 @@ import IndexRoute from '@routes/index.route';
 import UserRoute from '@/routes/user.route';
 import validateEnv from '@utils/validateEnv';
 import RecentViewRoute from './routes/recentView.route';
+import ProductRoute from './routes/product.route';
+
 
 validateEnv();
 
@@ -14,7 +16,8 @@ const app = new App([
   new IndexRoute(),
   new UserRoute(),
   new AuthRoute(),
-  new RecentViewRoute()
+  new RecentViewRoute(),
+  new ProductRoute(),
 ]);
 
 app.listen();

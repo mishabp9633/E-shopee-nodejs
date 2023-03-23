@@ -25,8 +25,6 @@ class UserRoute extends BaseRoute implements Routes{
     
     // for admin
     this.router.get(`${this.path}/admin/all`, authorizeRoles([ROLE. ADMIN]), this.usersAdminController.getUsers);
-    this.router.get(`${this.path}/admin/raw/all`, authorizeRoles([ROLE.ADMIN]), this.usersAdminController.getRawUsers);
-    this.router.get(`${this.path}/admin/custom/:custom`, authorizeRoles([ROLE.ADMIN]), this.usersAdminController.getCustomUsers);
     this.router.get(`${this.path}/admin/:id`, authorizeRoles([ROLE.ADMIN]), this.usersController.getUserById);
     this.router.put(`${this.path}/admin/:id`, validationMiddleware(UpdateUserByAdminDto, 'body', false), authorizeRoles([ROLE.ADMIN]), this.usersAdminController.updateUser);
     this.router.delete(`${this.path}/admin/:id`, authorizeRoles([ROLE.ADMIN]), this.usersController.deleteUser);
