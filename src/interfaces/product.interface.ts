@@ -9,8 +9,6 @@ export interface Product extends Document {
   brand?: string;
   // image?:Photo
   
-  resetPasswordToken: string;
-  resetPasswordExpires: number;
 }
 
 
