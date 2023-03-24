@@ -8,7 +8,7 @@ import { CreateProductDto } from '@/dtos/product.dto';
 
 
 class ProductRoute extends BaseRoute implements Routes{
-  public path = '/admin';
+  public path = '/product';
   public AdminProductController = new AdminProductController();
 
   constructor() {

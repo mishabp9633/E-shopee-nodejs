@@ -7,6 +7,9 @@ export const productSchema: Schema = new Schema(
     name: {
       type: String,
     },
+    description: {
+      type: String,
+    },
     quantity: {
       type: String,
     },
@@ -27,7 +30,7 @@ export const productSchema: Schema = new Schema(
     brand: {
       type: String,
     },
-    images: {
+    images: [{
       public_id: {
         type: String,
       },
@@ -35,6 +38,7 @@ export const productSchema: Schema = new Schema(
         type: String,
       },
     },
+  ]
   },
   { timestamps: true },
 );
