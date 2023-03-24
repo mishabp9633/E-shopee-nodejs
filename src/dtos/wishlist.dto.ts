@@ -1,6 +1,6 @@
-import { IsNotEmpty, IsString, IsOptional } from 'class-validator';
+import { IsNotEmpty, IsString, IsOptional, isNotEmpty } from 'class-validator';
 
-export class CreateRecentViewDto {
+export class CreateWishlistDto {
     
     @IsString()
     @IsNotEmpty()
