@@ -5,6 +5,10 @@ export class CreateProductDto {
     @IsOptional()
     @IsString()
     public name?: string;
+
+    @IsOptional()
+    @IsString()
+    public description?: string;
   
     @IsOptional()
     @IsString()

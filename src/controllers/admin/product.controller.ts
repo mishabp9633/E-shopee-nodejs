@@ -12,7 +12,7 @@ class AdminProductController {
       const page: string = req.query.page as string;
       const limit: string = (req.query.limit || '10') as string;
       // const name: string = req.query.name as string;
-      const findAllProductData = await this.productService.findAllProducts(page,limit,query);
+      const findAllProductData = await this.productService.findAllProducts(page, limit, query);
       res.status(200).json(findAllProductData);
     } catch (error) {
       next(error);
@@ -47,7 +47,7 @@ class AdminProductController {
       const productData: CreateProductDto = req.body;
       const updateProductData: Product = await this.productService.updateProduct(productId, productData);
 
-      res.status(200).json( updateProductData );
+      res.status(200).json(updateProductData);
     } catch (error) {
       next(error);
     }
@@ -58,10 +58,12 @@ class AdminProductController {
       const productId: string = req.params.id;
       const deleteProductData: Product = await this.productService.deleteProduct(productId);
 
-      res.status(200).json( deleteProductData );
+      res.status(200).json(deleteProductData);
     } catch (error) {
       next(error);
     }
   };
+
+ 
 }
 export default AdminProductController;
