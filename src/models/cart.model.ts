@@ -9,7 +9,7 @@ export enum CART_STATUS {
     CANCELLED = "cancelled"
 }
 
-export const CartItemSchema : Schema = new Schema ({
+const CartItemSchema : Schema = new Schema ({
     product: {
         type: String,
         ref: "Product"
@@ -42,13 +42,11 @@ export const CartItemSchema : Schema = new Schema ({
     }
 );
 
-    const CartItemModel = model<CartItem & Document>('CartItem', CartItemSchema);
-    module.exports = CartItemModel;
-
+ export const cartItemModel= model<CartItem & Document>('CartItem', CartItemSchema);
  // Cart Schema
-const CartSchema = new Schema({
+ const CartSchema :  Schema = new Schema ({
     products: [CartItemSchema],
-    user: {
+    userId: {
       type: Schema.Types.ObjectId,
       ref: 'User'
     },
@@ -58,7 +56,8 @@ const CartSchema = new Schema({
       default: Date.now
     },
 });
-    const CartModel = model<Cart & Document>('Cart', CartSchema);
-    module.exports = CartModel;
+
+export const cartModel = model<Cart & Document>('Cart', CartSchema);
+
   
   

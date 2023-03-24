@@ -1,16 +1,6 @@
 import { IsNotEmpty, IsString, IsOptional } from 'class-validator';
 
 export class CreateCartItemDto {
-
-    @IsString()
-    public products?: string; 
-
-    @IsString()
-    @IsNotEmpty()
-    public user?: string;
-}
-
-export class CreateCartDto {
     
     @IsString()
     public product?: string;
@@ -22,4 +12,14 @@ export class CreateCartDto {
     @IsString()
     @IsOptional()
     public status?: string;
+}
+
+export class CreateCartDto {
+    
+    @IsString()
+    public products?: string; 
+
+    @IsString()
+    @IsNotEmpty()
+    public userId?: string;
 }

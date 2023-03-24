@@ -2,7 +2,7 @@ import { Document } from "mongoose";
 
 export interface Cart extends Document{
     products: Array<any>;
-    user: string;
+    userId: string;
 }
 
 export interface CartItem extends Document{
