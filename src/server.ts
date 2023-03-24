@@ -21,9 +21,10 @@ const app = new App([
   new AuthRoute(),
   new RecentViewRoute(),
   new ProductRoute(),
-  new ProductImageRoute()
+  new ProductImageRoute(),
   new CartRoute(),
-  new WishlistRoute()
+  new WishlistRoute(),
+  new CartRoute()
 ]);
 
 app.listen();
