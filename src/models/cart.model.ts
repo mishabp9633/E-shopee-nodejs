@@ -47,7 +47,7 @@ const CartItemSchema : Schema = new Schema ({
  const CartSchema :  Schema = new Schema ({
     products: [CartItemSchema],
     userId: {
-      type: Schema.Types.ObjectId,
+      type: String,
       ref: 'User'
     },
     updated: Date,

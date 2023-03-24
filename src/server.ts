@@ -9,6 +9,7 @@ import validateEnv from '@utils/validateEnv';
 import RecentViewRoute from './routes/recentView.route';
 import ProductRoute from './routes/product.route';
 import CartRoute from './routes/cart.route';
+import WishlistRoute from './routes/wishlist.route';
 
 
 validateEnv();
@@ -19,8 +20,8 @@ const app = new App([
   new AuthRoute(),
   new RecentViewRoute(),
   new ProductRoute(),
-  new CartRoute()
-
+  new CartRoute(),
+  new WishlistRoute()
 ]);
 
 app.listen();
