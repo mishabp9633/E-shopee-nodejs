@@ -4,38 +4,41 @@ import { CreateProductDto } from '@/dtos/product.dto';
 import { Product } from '@/interfaces/product.interface';
 import AdminProductImageService from '@services/admin/productImage.service';
 import { CreateProductImageDto } from '@/dtos/productImage.dto';
+import AdminProductService from '@/services/admin/product.service';
 
 class AdminProductImageController {
   public productImageService = new AdminProductImageService();
+  public adminProductService = new AdminProductService();
+  // public getProductImages = async (req: Request, res: Response, next: NextFunction) => {
+  //   try {
+  //     const query = req.query;
+  //     const page: string = req.query.page as string;
+  //     const limit: string = (req.query.limit || '10') as string;
+  //     // const name: string = req.query.name as string;
+  //     const findAllProductImageData = await this.productImageService.findAllProductImages(page,limit,query);
+  //     res.status(200).json(findAllProductImageData);
+  //   } catch (error) {
+  //     next(error);
+  //   }
+  // };
 
-  public getProductImages = async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      const query = req.query;
-      const page: string = req.query.page as string;
-      const limit: string = (req.query.limit || '10') as string;
-      // const name: string = req.query.name as string;
-      const findAllProductImageData = await this.productImageService.findAllProductImages(page,limit,query);
-      res.status(200).json(findAllProductImageData);
-    } catch (error) {
-      next(error);
-    }
-  };
+  // public getProductImageById = async (req: Request, res: Response, next: NextFunction) => {
+  //   try {
+  //     const productImageId: string = req.params.id;
+  //     const findProductImageData: Product = await this.productImageService.findProductImageById(productImageId);
 
-  public getProductImageById = async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      const productImageId: string = req.params.id;
-      const findProductImageData: Product = await this.productImageService.findProductImageById(productImageId);
-
-      res.status(200).json(findProductImageData);
-    } catch (error) {
-      next(error);
-    }
-  };
+  //     res.status(200).json(findProductImageData);
+  //   } catch (error) {
+  //     next(error);
+  //   }
+  // };
 
   public createProductImage = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const productImageData: CreateProductImageDto = req.body;
-      const createProductImageData: Product = await this.productImageService.createProductImage(productImageData);
+      const productId : string = req.params.id
+      const files : any = req.files
+      // const productImageData: CreateProductImageDto = req.body;
+      const createProductImageData: Product = await this.productImageService.createProductImage(productId,files);
 
       res.status(200).json(createProductImageData);
     } catch (error) {
@@ -57,8 +60,11 @@ class AdminProductImageController {
 
   public deleteProductImage = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const productImageId: string = req.params.id;
-      const deleteProductImageData: Product = await this.productImageService.deleteProductImage(productImageId);
+      const productId: string = req.params.id;
+
+      const deleteProductImageData: Product = await this.productImageService.deleteProductImage(productId);
+      console.log("delete pro img:",deleteProductImageData);
+      
 
       res.status(200).json( deleteProductImageData );
     } catch (error) {

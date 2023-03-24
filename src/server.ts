@@ -8,6 +8,7 @@ import UserRoute from '@/routes/user.route';
 import validateEnv from '@utils/validateEnv';
 import RecentViewRoute from './routes/recentView.route';
 import ProductRoute from './routes/product.route';
+import ProductImageRoute from './routes/productImage';
 
 
 validateEnv();
@@ -18,6 +19,7 @@ const app = new App([
   new AuthRoute(),
   new RecentViewRoute(),
   new ProductRoute(),
+  new ProductImageRoute()
 ]);
 
 app.listen();

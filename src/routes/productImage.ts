@@ -5,24 +5,24 @@ import { authorizeRoles } from '@/middlewares/singleAuthCheck.middlware';
 import { ROLE } from "@/models/user.model";
 import { CreateProductImageDto } from '@/dtos/productImage.dto';
 import AdminProductImageController from '@/controllers/admin/productImage.controller';
-
-class RecentViewRoute implements Routes {
-  public path = '/recentView';
+import multer from 'multer';
+class ProductImageRoute implements Routes {
+  public path = '/productImage';
   public router = Router();
   public productImageController = new AdminProductImageController();
-
+public upload = multer({ storage : multer.diskStorage({})})
   constructor() {
     this.initializeRoutes();
   }
 
   private initializeRoutes() {
    // admin
-    this.router.get(`${this.path}/admin/all`, authorizeRoles([ROLE.ADMIN, ROLE.USER]), this.productImageController.getProductImages);
-    this.router.get(`${this.path}/admin/:id`, authorizeRoles([ROLE.ADMIN, ROLE.USER]), this.productImageController.getProductImageById);
-    this.router.post(`${this.path}/admin/new`, validationMiddleware(CreateProductImageDto, 'body', false), authorizeRoles([ROLE.ADMIN, ROLE.USER]), this.productImageController.createProductImage);
+    // this.router.get(`${this.path}/admin/all`, authorizeRoles([ROLE.ADMIN, ROLE.USER]), this.productImageController.getProductImages);
+    // this.router.get(`${this.path}/admin/:id`, authorizeRoles([ROLE.ADMIN, ROLE.USER]), this.productImageController.getProductImageById);
+    this.router.post(`${this.path}/admin/new/:id`,this.upload.array("photo"), validationMiddleware(CreateProductImageDto, 'body', false), authorizeRoles([ROLE.ADMIN, ROLE.USER]), this.productImageController.createProductImage);
     this.router.put(`${this.path}/admin/:id`, validationMiddleware(CreateProductImageDto, 'body', false), authorizeRoles([ROLE.ADMIN, ROLE.USER]), this.productImageController.updateProductImage);
     this.router.delete(`${this.path}/admin/:id`, authorizeRoles([ROLE.ADMIN, ROLE.USER]), this.productImageController.deleteProductImage);
   }
 }
 
-export default RecentViewRoute;
+export default ProductImageRoute;

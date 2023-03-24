@@ -1,59 +1,48 @@
-import _ from 'lodash'
-import { toNumber } from 'lodash'
+import _ from 'lodash';
+import { toNumber } from 'lodash';
 import { HttpException } from '@exceptions/HttpException';
 import { Product } from '@/interfaces/product.interface';
 import productModel from '@/models/product.model';
-import { CreateProductDto } from '@/dtos/product.dto';
 import { CreateProductImageDto } from '@/dtos/productImage.dto';
+import cloudinary from '@/utils/cloudinary';
 
 class AdminProductImageService {
-  public productImage = productModel;
+  public product = productModel;
 
-  public async findProductImageById(productImageId: string): Promise<Product> {
-    console.log('productImageId in service:', productImageId);
-    const findProductImage: Product = await this.productImage.findById({ _id: productImageId },
-       );
-    if (!findProductImage) throw new HttpException(409, " There is no image ");
+  public async createProductImage(productId: string, files: any): Promise<any> {
+    const Product: Product = await this.product.findById(productId);
+    const images = [];
 
-    return findProductImage;
-  }
-  
-  public async findAllProductImages(page: string, limit: string, query): Promise<{ ProductImages: Product[]; total: number; page: string }> {
-    let queryData = {};
-
-    if (query?.search) {
-      queryData['$or'] = [{ name: { $regex: query?.search ? query?.search : '', $options: 'i' } }];
+    for (const file of files) {
+      const publicId = `product/${file.filename}`;
+      const result = await cloudinary.uploader.upload(file.path, { public_id: publicId });
+      images.push({
+        publicId: result.public_id,
+        url: result.secure_url,
+      });
     }
-
-    const ProductImages: Product[] = await this.productImage
-      .find(queryData)
-      .sort({ createdAt: -1 })
-      .limit(toNumber(limit))
-      .skip((toNumber(page ? page : 1) - 1) * toNumber(limit));
-    const total = await this.productImage.find().countDocuments();
-    return { ProductImages, page, total };
+    Product.images.push(...images);
+    const productImage = await Product.save();
+    return productImage;
   }
 
-
-  public async createProductImage(productImageData: CreateProductImageDto): Promise<any> {
-    const createProductImageData: Product = await this.productImage.create({ ...productImageData });
-    return createProductImageData;
-  }
-
-public async updateProductImage(productImageId: string, productImageData: CreateProductImageDto): Promise<Product> {
-    const updateProductImageById: Product = await this.productImage.findByIdAndUpdate(productImageId, productImageData, { new: true });
+  public async updateProductImage(productImageId: string, productImageData: CreateProductImageDto): Promise<Product> {
+    const updateProductImageById: Product = await this.product.findByIdAndUpdate(productImageId, productImageData, { new: true });
     if (!updateProductImageById) throw new HttpException(409, "You're not product");
 
     return updateProductImageById;
   }
-  
-  public async deleteProductImage(productImageId: string): Promise<Product> {
-    const deleteProductImageById: Product = await this.productImage.findByIdAndDelete(productImageId);
-    if (!deleteProductImageById) throw new HttpException(409, "You're not product");
 
-    return deleteProductImageById;
+  public async deleteProductImage(productId: string,productImageId:string): Promise<Product> {
+    // const findProductId =
+    const product: Product = await this.product.findOne({ productId })
+    if (!product) throw new HttpException(404, 'Product not found');
+
+    const deletedProduct: Product = await this.product.findByIdAndUpdate(product._id, { $pull: { images: { _id: productImageId } } }, { new: true });
+    if (!deletedProduct) throw new HttpException(409, "You're not product");
+
+    return deletedProduct;
   }
-
 }
 
 export default AdminProductImageService;

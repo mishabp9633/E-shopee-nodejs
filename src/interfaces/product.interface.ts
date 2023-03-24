@@ -3,18 +3,20 @@ import { Document } from "mongoose";
 
 export interface Product extends Document {
   name?: string;
+  description?:string
   quantity?: string;
   price?: Price;
   isActive: Boolean;
   brand?: string;
-  // image?:Photo
+  images?:Array<Photo>
   
 }
 
 
 export interface Photo extends Document {
-    public_id: String;
-    url: String;
+    public_id: string;
+    url: string;
+    _id: string
   }
   
 
