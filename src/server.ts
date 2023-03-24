@@ -8,7 +8,9 @@ import UserRoute from '@/routes/user.route';
 import validateEnv from '@utils/validateEnv';
 import RecentViewRoute from './routes/recentView.route';
 import ProductRoute from './routes/product.route';
-import ProductImageRoute from './routes/productImage';
+import ProductImageRoute from './routes/productImage'
+import CartRoute from './routes/cart.route';
+import WishlistRoute from './routes/wishlist.route';
 
 
 validateEnv();
@@ -20,6 +22,8 @@ const app = new App([
   new RecentViewRoute(),
   new ProductRoute(),
   new ProductImageRoute()
+  new CartRoute(),
+  new WishlistRoute()
 ]);
 
 app.listen();
