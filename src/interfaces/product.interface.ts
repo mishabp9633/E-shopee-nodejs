@@ -16,7 +16,6 @@ export interface Product extends Document {
 export interface Photo extends Document {
     public_id: string;
     url: string;
-    _id: string
   }
   
 

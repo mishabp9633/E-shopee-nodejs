@@ -5,33 +5,11 @@ import { Product } from '@/interfaces/product.interface';
 import AdminProductImageService from '@services/admin/productImage.service';
 import { CreateProductImageDto } from '@/dtos/productImage.dto';
 import AdminProductService from '@/services/admin/product.service';
+import cloudinary from '@/utils/cloudinary';
 
 class AdminProductImageController {
   public productImageService = new AdminProductImageService();
   public adminProductService = new AdminProductService();
-  // public getProductImages = async (req: Request, res: Response, next: NextFunction) => {
-  //   try {
-  //     const query = req.query;
-  //     const page: string = req.query.page as string;
-  //     const limit: string = (req.query.limit || '10') as string;
-  //     // const name: string = req.query.name as string;
-  //     const findAllProductImageData = await this.productImageService.findAllProductImages(page,limit,query);
-  //     res.status(200).json(findAllProductImageData);
-  //   } catch (error) {
-  //     next(error);
-  //   }
-  // };
-
-  // public getProductImageById = async (req: Request, res: Response, next: NextFunction) => {
-  //   try {
-  //     const productImageId: string = req.params.id;
-  //     const findProductImageData: Product = await this.productImageService.findProductImageById(productImageId);
-
-  //     res.status(200).json(findProductImageData);
-  //   } catch (error) {
-  //     next(error);
-  //   }
-  // };
 
   public createProductImage = async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -58,18 +36,50 @@ class AdminProductImageController {
     }
   };
 
-  public deleteProductImage = async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      const productId: string = req.params.id;
+  // public deleteProductImage = async (req: Request, res: Response, next: NextFunction) => {
+  //   try {
+  //     const productId: string = req.params.id;
 
-      const deleteProductImageData: Product = await this.productImageService.deleteProductImage(productId);
-      console.log("delete pro img:",deleteProductImageData);
+  //     const deleteProductImageData: Product = await this.productImageService.deleteProductImage(productId);
+  //     console.log("delete pro img:",deleteProductImageData);
       
 
-      res.status(200).json( deleteProductImageData );
-    } catch (error) {
-      next(error);
-    }
-  };
+  //     res.status(200).json( deleteProductImageData );
+  //   } catch (error) {
+  //     next(error);
+  //   }
+  // };
+
+  public Delete = async(req: Request, res: Response, next: NextFunction)=>{
+    try{
+        const productId = req.params.id
+        const {images} = await this.productImageService.getPhotoById(productId);
+        console.log('photos:', images);
+  
+        // Delete photos in cloudinary
+
+        for (const image of images) {
+          console.log("image::",image);
+          
+          await cloudinary.uploader.destroy(image.public_id);
+          console.log("image publicId:",image.public_id);
+          
+        }
+        // Delete images from the database
+    const imageIds = images.map(image => image._id);
+    const result = await this.productImageService.deleteProductImage(productId, imageIds);
+    console.log('result', result);
+
+        
+        // const imageId = req.body.images._id
+        // const result = await this.adminProductService.deleteProduct(imageId)
+        // console.log('result',result)
+        res.status(200).send("success")
+    }catch(err){
+        console.log(err);
+        next(err)
+    }    
+}
+
 }
 export default AdminProductImageController;
