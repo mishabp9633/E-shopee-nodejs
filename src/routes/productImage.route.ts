@@ -21,7 +21,7 @@ public upload = multer({ storage : multer.diskStorage({})})
     // this.router.get(`${this.path}/admin/:id`, authorizeRoles([ROLE.ADMIN, ROLE.USER]), this.productImageController.getProductImageById);
     this.router.post(`${this.path}/admin/new/:id`,this.upload.array("photo"), validationMiddleware(CreateProductImageDto, 'body', false), authorizeRoles([ROLE.ADMIN, ROLE.USER]), this.productImageController.createProductImage);
     this.router.put(`${this.path}/admin/:id`, validationMiddleware(CreateProductImageDto, 'body', false), authorizeRoles([ROLE.ADMIN, ROLE.USER]), this.productImageController.updateProductImage);
-    this.router.delete(`${this.path}/admin/:id`, authorizeRoles([ROLE.ADMIN, ROLE.USER]), this.productImageController.deleteProductImage);
+    this.router.delete(`${this.path}/admin/delete/:id`, authorizeRoles([ROLE.ADMIN, ROLE.USER]), this.productImageController.Delete);
   }
 }
 

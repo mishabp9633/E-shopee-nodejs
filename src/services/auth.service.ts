@@ -27,7 +27,8 @@ class AuthService {
 
       await user.save({ validateBeforeSave: false });
 
-      return { token };
+      let role = user.role
+      return { token, role };
     } else {
       throw new HttpException(400, `user ${userData.email} already exists`);
     }
@@ -120,7 +121,8 @@ class AuthService {
     user.token = token;
     await user.save({ validateBeforeSave: false });
 
-    return { token };
+    const role = user.role
+    return { token, role };
   }
 
   public async logout(userData: User): Promise<any> {
