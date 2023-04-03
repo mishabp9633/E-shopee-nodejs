@@ -53,16 +53,16 @@ class AdminProductController {
     }
   };
 
-  // public deleteProduct = async (req: Request, res: Response, next: NextFunction) => {
-  //   try {
-  //     const productId: string = req.params.id;
-  //     const deleteProductData: Product = await this.productService.deleteProduct(productId);
+  public deleteProduct = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const productId: string = req.params.id;
+      const deleteProductData: Product = await this.productService.deleteProduct(productId);
 
-  //     res.status(200).json(deleteProductData);
-  //   } catch (error) {
-  //     next(error);
-  //   }
-  // };
+      res.status(200).json(deleteProductData);
+    } catch (error) {
+      next(error);
+    }
+  };
 
  
 }
