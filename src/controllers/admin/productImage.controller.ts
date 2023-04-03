@@ -72,10 +72,10 @@ class AdminProductImageController {
       const result = await this.productImageService.deleteProductImage(productId, imageIds);
       console.log('result', result);
 
-      // const imageId = req.body.images._id
-      // const result = await this.adminProductService.deleteProduct(imageId)
-      // console.log('result',result)
-      res.status(200).send('success');
+      const imageId = req.body.imageId
+      const data = await this.adminProductService.deleteProduct(imageId)
+      console.log('data',data)
+      res.status(200).send({message:'success'});
     } catch (err) {
       console.log(err);
       next(err);

@@ -46,14 +46,14 @@ public async updateProduct(productId: string, productData: CreateProductDto): Pr
     return updateProductById;
   }
   
-  // public async deleteProduct(id: string): Promise<Product> {
-  //   const deleteProductById: Product = await this.product.findByIdAndDelete(id);
-  //   console.log("dleteee:",deleteProductById);
+  public async deleteProduct(id: string): Promise<Product> {
+    const deleteProductById: Product = await this.product.findByIdAndDelete(id);
+    console.log("dleteee:",deleteProductById);
     
-  //   if (!deleteProductById) throw new HttpException(409, "product not found");
+    if (!deleteProductById) throw new HttpException(409, "product not found");
 
-  //   return deleteProductById;
-  // }
+    return deleteProductById;
+  }
 
 //   public async Delete(id:string):Promise<Product>{
 //     const product = await productModel.findByIdAndDelete(id)

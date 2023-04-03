@@ -56,19 +56,27 @@ class AdminProductImageService {
 
   public async deleteProductImage(productId: string, imageIds: string[]): Promise<Product> {
     const product: Product = await this.product.findById(productId);
+    console.log("prr:",product);
     
+  
     if (!product) {
-      throw new HttpException(404,'not found');
+      throw new HttpException(404, 'Product not found');
     }
   
-    // Filter out the images to be deleted
-    product.images = product.images.filter(image => !imageIds.includes(image._id));
-    console.log(" product.images:", product.images);
+    const images = product.images.filter(image => imageIds.includes(image._id.toString()));
     
+    // Delete images from Cloudinary
+    for (const image of images) {
+      await cloudinary.uploader.destroy(image.public_id);
+    }
   
-    // Save the updated product
-    return await product.save();
+    // Remove images from the product's image array in the database
+    product.images = product.images.filter(image => !imageIds.includes(image._id.toString()));
+    await product.save();
+  
+    return product;
   }
+  
   
 }
 
