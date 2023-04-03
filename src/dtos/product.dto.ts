@@ -15,7 +15,6 @@ export class CreateProductDto {
     public quantity?: string;
   
     @IsOptional()
-    @IsString()
     public price?: Price;
   
     @IsOptional()
