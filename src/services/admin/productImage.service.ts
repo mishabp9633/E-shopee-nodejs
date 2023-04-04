@@ -26,22 +26,18 @@ class AdminProductImageService {
     return productImage;
   }
 
-  public async updateProductImage(productImageId: string, productImageData: CreateProductImageDto): Promise<Product> {
-    const updateProductImageById: Product = await this.product.findByIdAndUpdate(productImageId, productImageData, { new: true });
-    if (!updateProductImageById) throw new HttpException(409, "You're not product");
+  // public async updateProductImage(productId: string, files: any): Promise<Product> {
+  //   const Product: Product = await this.product.findById(productId);
+  //   const images = [];
+  //   for (const file of files) {
+  //     const public_id = `product/${file.filename}`;
+  //     const result = await this.product.findByIdAndUpdate(productId,{new:true})
+  //   }
+ 
+  //   const updateProductImageById: Product = await this.product.findByIdAndUpdate(productId, { new: true });
+  //   if (!updateProductImageById) throw new HttpException(409, "You're not product");
 
-    return updateProductImageById;
-  }
-
-  // public async deleteProductImage(productId: string): Promise<Product> {
-  //   // const findProductId =
-  //   const product: Product = await this.product.findOne({ productId })
-  //   if (!product) throw new HttpException(404, 'Product not found');
-
-  //   const deletedProduct: Product = await this.product.findByIdAndUpdate(product._id, { $pull: { images: { _id: productImageId } } }, { new: true });
-  //   if (!deletedProduct) throw new HttpException(409, "You're not product");
-
-  //   return deletedProduct;
+  //   return updateProductImageById;
   // }
 
   public async getPhotoById(id: string) {
@@ -53,23 +49,23 @@ class AdminProductImageService {
     return { images };
   }
 
-
-  public async deleteProductImage(productId: string, imageIds: string[]): Promise<Product> {
-    const product: Product = await this.product.findById(productId);
-    
+  public async deleteProductImage(productId: string, publicId: string): Promise<any> {
+    const product = await this.product.findById(productId);
     if (!product) {
-      throw new HttpException(404,'not found');
+      throw new Error('Product not found.');
     }
-  
-    // Filter out the images to be deleted
-    product.images = product.images.filter(image => !imageIds.includes(image._id));
-    console.log(" product.images:", product.images);
-    
-  
-    // Save the updated product
-    return await product.save();
+
+    const imageIndex = product.images.findIndex(image => image.public_id === publicId);
+    if (imageIndex === -1) {
+      throw new Error('Image not found.');
+    }
+    product.images.splice(imageIndex, 1);
+    await product.save();
+
+    await cloudinary.uploader.destroy(publicId);
+
+    return product;
   }
-  
 }
 
 export default AdminProductImageService;

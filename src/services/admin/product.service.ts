@@ -4,6 +4,7 @@ import { HttpException } from '@exceptions/HttpException';
 import { Product } from '@/interfaces/product.interface';
 import productModel from '@/models/product.model';
 import { CreateProductDto } from '@/dtos/product.dto';
+import cloudinary from '@/utils/cloudinary';
 
 class AdminProductService {
   public product = productModel;
@@ -46,21 +47,29 @@ public async updateProduct(productId: string, productData: CreateProductDto): Pr
     return updateProductById;
   }
   
-  // public async deleteProduct(id: string): Promise<Product> {
-  //   const deleteProductById: Product = await this.product.findByIdAndDelete(id);
-  //   console.log("dleteee:",deleteProductById);
-    
-  //   if (!deleteProductById) throw new HttpException(409, "product not found");
-
-  //   return deleteProductById;
-  // }
-
-//   public async Delete(id:string):Promise<Product>{
-//     const product = await productModel.findByIdAndDelete(id)
-//     if(!product) throw new HttpException(404, "product not found")
-//     return product
-//  }
-
+  
+  public async deleteProduct(id: string): Promise<Product> {
+    const product: Product = await this.product.findById(id);
+  
+    if (!product) {
+      throw new HttpException(404, "Product not found");
+    }
+  
+    // Delete all images associated with the product from Cloudinary
+    for (const image of product.images) {
+      await cloudinary.uploader.destroy(image.public_id);
+    }
+  
+    // Delete the product from the database
+    const deleteProductById: Product = await this.product.findByIdAndDelete(id);
+  
+    if (!deleteProductById) {
+      throw new HttpException(409, "Product not found");
+    }
+  
+    return deleteProductById;
+  }
+  
 }
 
 export default AdminProductService;
