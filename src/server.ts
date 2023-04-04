@@ -23,7 +23,8 @@ const app = new App([
   new ProductRoute(),
   new ProductImageRoute(),
   new CartRoute(),
-  new WishlistRoute()
+  new WishlistRoute(),
+  new CartRoute()
 ]);
 
 app.listen();
