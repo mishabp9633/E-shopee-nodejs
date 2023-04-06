@@ -26,17 +26,34 @@ class AdminProductImageController {
     }
   };
 
-  // public updateProductImage = async (req: Request, res: Response, next: NextFunction) => {
-  //   try {
-  //     const productImageId: string = req.params.id;
-  //     const productImageData: CreateProductImageDto = req.body;
-  //     const updateProductImageData: Product = await this.productImageService.updateProductImage(productImageId, productImageData);
+  public updateProductImage = async (req: Request, res: Response, next: NextFunction) => {
+    // try {
+    //   const productId: string = req.params.id;
+    //   const files: any = req.files;
+      
+    //   if (!files) {
+    //     return res.status(400).json({ message: 'No files were uploaded.' });
+    //   }
+    //   const updateProductImageData: Product = await this.productImageService.updateProductImage(productId, files);
 
-  //     res.status(200).json(updateProductImageData);
-  //   } catch (error) {
-  //     next(error);
-  //   }
-  // };
+    //   res.status(200).json({message:"Updated product image"});
+    // } catch (error) {
+    //   next(error);
+    // }
+
+    try {
+      const productId: string = req.params.id;
+      const files: any = req.files;
+      if (!files) {
+        return res.status(400).json({ message: 'No files were uploaded.' });
+      }
+      const updateProductImage: Product = await this.productImageService.updateProductImage(productId, files);
+
+      res.status(200).json({ message: 'image uploaded successfully' });
+    } catch (error) {
+      next(error);
+    }
+  };
 
   public deleteProductImage = async (req: Request, res: Response, next: NextFunction) => {
     try {
