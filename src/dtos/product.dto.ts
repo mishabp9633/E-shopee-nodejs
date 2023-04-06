@@ -12,7 +12,7 @@ export class CreateProductDto {
   
     @IsOptional()
     @IsString()
-    public quantity?: string;
+    public stock?: number;
 
     @IsOptional()
     @IsString()
