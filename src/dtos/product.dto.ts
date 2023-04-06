@@ -13,7 +13,11 @@ export class CreateProductDto {
     @IsOptional()
     @IsString()
     public quantity?: string;
-  
+
+    @IsOptional()
+    @IsString()
+    public category?: string;
+
     @IsOptional()
     public price?: Price;
   
