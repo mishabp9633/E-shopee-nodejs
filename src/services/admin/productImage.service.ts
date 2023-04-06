@@ -11,6 +11,7 @@ class AdminProductImageService {
 
   public async createProductImage(productId: string, files: any): Promise<any> {
     const Product: Product = await this.product.findById(productId);
+    if(!Product) throw new HttpException(404, "product not found")
     const images = [];
 
     for (const file of files) {
@@ -26,19 +27,33 @@ class AdminProductImageService {
     return productImage;
   }
 
-  // public async updateProductImage(productId: string, files: any): Promise<Product> {
-  //   const Product: Product = await this.product.findById(productId);
-  //   const images = [];
-  //   for (const file of files) {
-  //     const public_id = `product/${file.filename}`;
-  //     const result = await this.product.findByIdAndUpdate(productId,{new:true})
-  //   }
- 
-  //   const updateProductImageById: Product = await this.product.findByIdAndUpdate(productId, { new: true });
-  //   if (!updateProductImageById) throw new HttpException(409, "You're not product");
+  public async updateProductImage(productId: string, files: any): Promise<Product> {
 
-  //   return updateProductImageById;
-  // }
+    const Product: Product = await this.product.findById(productId);
+    if(!Product) throw new HttpException(404, "product not found")
+    const images = [];
+
+    for (const file of files) {
+      const public_id = `product/${file.filename}`;
+      const result = await cloudinary.uploader.upload(file.path, { public_id });
+      images.push({
+        public_id: result.public_id,
+        url: result.secure_url,
+      });
+    }
+    Product.images.push(...images);
+    const productImage = await Product.save();
+    return productImage;
+
+    // const photos = Product.images
+
+    // // Delete photos in cloudinary
+    // for (const photo of photos) {
+    //   console.log(photo);
+    //   await cloudinary.uploader.destroy(photo.public_id);
+    // }
+
+  }
 
   public async getPhotoById(id: string) {
     const product = await productModel.findOne({ _id: id });

@@ -11,7 +11,15 @@ export const productSchema: Schema = new Schema(
       type: String,
     },
     quantity: {
+      type: Number,
+      purchasePrice: {
+          type: Number,
+          default: 0
+      }
+    },
+    category: {
       type: String,
+      required: true,
     },
     price: {
       actualPrice: {
