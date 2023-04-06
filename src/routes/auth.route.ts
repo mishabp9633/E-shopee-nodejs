@@ -17,6 +17,8 @@ class AuthRoute extends BaseRoute implements Routes  {
   private initializeRoutes() {
     this.router.post(`${this.path}register/mail`, validationMiddleware(CreateUserDto, 'body', false), this.authController.registerWithMail);
 
+    this.router.get(`${this.path}username`, this.authController.checkUsername);
+
     this.router.post(`${this.path}login/mail`, validationMiddleware(LoginUserDto, 'body', false), this.authController.login);
     
     this.router.get(`${this.path}logout`, authorizeRoles([ROLE.USER]),  this.authController.logout);
