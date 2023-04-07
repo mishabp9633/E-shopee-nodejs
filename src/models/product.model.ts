@@ -10,7 +10,7 @@ export const productSchema: Schema = new Schema(
     description: {
       type: String,
     },
-    quantity: {
+    stock: {
       type: Number,
       purchasePrice: {
           type: Number,

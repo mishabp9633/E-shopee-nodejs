@@ -7,6 +7,12 @@ export enum ROLE {
 }
 
 export const userSchema: Schema = new Schema({
+  username:{
+    type: String,
+    unique: true,
+    minlength: [4, 'Your username must contain 4 characters'],
+    maxLength: [15, 'Your username cannot exceed 15 characters']
+  },
   firstName: {
     type: String,
   },
