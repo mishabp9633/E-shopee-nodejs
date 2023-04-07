@@ -17,7 +17,7 @@ export class CreateCartItemDto {
 export class CreateCartDto {
     
     @IsOptional()
-    public products?: string; 
+    public products?: Array<any>; 
 
     @IsOptional()
     public userId?: string;
