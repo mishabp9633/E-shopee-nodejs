@@ -18,6 +18,7 @@ class MatchConstraint {
 }
 
 export class CreateUserDto {
+
   @IsOptional()
   @IsString()
   public firstname?: string;
@@ -126,3 +127,8 @@ export class ResetUserPasswordDto {
   public confirmPassword: string;
 }
 
+export class CreateUsernameDto {
+  @IsNotEmpty()
+  @IsString()
+  public username: string;
+}
