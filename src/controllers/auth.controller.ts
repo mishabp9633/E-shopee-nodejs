@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import { CreateUserDto } from '@dtos/users.dto';
+import { CreateUserDto, CreateUsernameDto } from '@dtos/users.dto';
 import { IRequestWithUser } from '@interfaces/auth.interface';
 import { User } from '@/interfaces/user.interface';
 import AuthService from '@services/auth.service';
@@ -94,6 +94,18 @@ class AuthController {
       console.log(result);
     } catch (error) {
       console.log(error);
+      next(error);
+    }
+  };
+
+  public checkUsername = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const userId = req.query.userId as string
+      const username: string = req.body.username
+      const registerUsernameData: User = await this.authService.usernameCheck(username, userId);
+
+      res.status(200).json(registerUsernameData);
+    } catch (error) {
       next(error);
     }
   };

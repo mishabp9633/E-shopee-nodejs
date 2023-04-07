@@ -5,6 +5,7 @@ import { HttpException } from '../exceptions/HttpException';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import { sendMail } from '@/utils/mail.service';
+import { toString } from 'lodash';
 
 class AuthService {
   public users = userModel;
@@ -176,6 +177,13 @@ class AuthService {
     } else {
       throw new HttpException(400, 'password dose not match each other');
     }
+  }
+
+  public async usernameCheck(nameCheckText: string, userId: string): Promise<any> {
+    const user: User = await this.users.findOne({ username: nameCheckText });
+    return userId
+      ? toString(user?._id) === userId
+      : !user;
   }
 }
 
