@@ -2,10 +2,9 @@ import { IsNotEmpty, IsString, IsOptional, isNotEmpty } from 'class-validator';
 
 export class CreateWishlistDto {
     
-    @IsString()
-    @IsNotEmpty()
+    @IsOptional()
     public userId?: string;
 
-    @IsNotEmpty()
+    @IsOptional()
     public products?: Array<string>;
 }
