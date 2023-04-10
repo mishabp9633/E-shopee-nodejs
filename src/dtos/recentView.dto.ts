@@ -2,10 +2,9 @@ import { IsNotEmpty, IsString, IsOptional } from 'class-validator';
 
 export class CreateRecentViewDto {
     
-    @IsString()
-    @IsNotEmpty()
+    @IsOptional()
     public userId?: string;
 
-    @IsNotEmpty()
+    @IsOptional()
     public products?: Array<string>;
 }
