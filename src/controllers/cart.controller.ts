@@ -15,6 +15,18 @@ class CartController {
         next(error);
       }
     };
+
+    
+    public getCartsByToken = async (req: Request, res: Response, next: NextFunction) => {
+      try {
+        const userId = req.body.user._id as string
+        const findAllCartsData: Cart[] = await this.cartService.findCartsByToken(userId);
+        res.status(200).json( findAllCartsData );
+      } catch (error) {
+        next(error);
+      }
+    };
+  
   
     public getCartById = async (req: Request, res: Response, next: NextFunction) => {
       try {

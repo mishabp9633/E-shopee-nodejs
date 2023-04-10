@@ -19,6 +19,7 @@ class CartRoute implements Routes {
    // admin
     this.router.get(`${this.path}/admin/all`, authorizeRoles([ROLE.ADMIN, ROLE.USER]), this.cartController.getCarts);
     this.router.get(`${this.path}/admin/:id`, authorizeRoles([ROLE.ADMIN, ROLE.USER]), this.cartController.getCartById);
+    this.router.get(`${this.path}/user/all`, authorizeRoles([ROLE.USER]), this.cartController.getCartsByToken);
     this.router.post(`${this.path}/admin/new`, validationMiddleware(CreateCartDto, 'body', false), authorizeRoles([ROLE.USER]), this.cartController.createCart);
     this.router.put(`${this.path}/admin/:id`, validationMiddleware(CreateCartDto, 'body', false), authorizeRoles([ROLE.ADMIN, ROLE.USER]), this.cartController.updateCart);
     this.router.delete(`${this.path}/admin/:id`, authorizeRoles([ROLE.ADMIN, ROLE.USER]), this.cartController.deleteCart);

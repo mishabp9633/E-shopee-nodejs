@@ -15,6 +15,13 @@ class CartService {
       
       return carts;
     }
+
+    public async findCartsByToken(userId: string): Promise<Cart[]> {
+      const carts: Cart[] = await this.cart.find({ userId : userId })
+      .sort({createdAt:-1});
+      
+      return carts;
+    }
   
     public async findCartById(cartId: string): Promise<Cart> {
       if (isEmpty(cartId)) throw new HttpException(400, "This is not a valid cartId.");
