@@ -18,6 +18,7 @@ class CartService {
 
     public async findCartsByToken(userId: string): Promise<Cart[]> {
       const carts: Cart[] = await this.cart.find({ userId : userId })
+      .populate("product",["images","price","name"])
       .sort({createdAt:-1});
       
       return carts;

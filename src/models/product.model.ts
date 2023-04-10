@@ -1,4 +1,4 @@
-import { Product } from '@/interfaces/product.interface';
+  import { Product } from '@/interfaces/product.interface';
 import { timeStamp } from 'console';
 import { model, Schema, Document, Types } from 'mongoose';
 
