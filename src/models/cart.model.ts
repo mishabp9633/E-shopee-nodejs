@@ -42,7 +42,7 @@ const CartItemSchema : Schema = new Schema ({
     }
 );
 
- export const cartItemModel= model<CartItem & Document>('CartItem', CartItemSchema);
+ export const cartItemModel= model<CartItem & Document>('CartItem', CartItemSchema)
  // Cart Schema
  const CartSchema :  Schema = new Schema ({
     products: [CartItemSchema],
