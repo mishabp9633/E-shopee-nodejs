@@ -2,7 +2,7 @@ import { IsNotEmpty, IsString, IsOptional } from 'class-validator';
 
 export class CreateCartItemDto {
     
-    @IsString()
+    // @IsString()
     public product?: string;
 
     // @IsString()
@@ -16,10 +16,10 @@ export class CreateCartItemDto {
 
 export class CreateCartDto {
     
-    @IsString()
+    // @IsString()
     public products?: string; 
 
-    @IsString()
-    @IsNotEmpty()
+    // @IsString()
+    // @IsNotEmpty()
     public userId?: string;
 }
