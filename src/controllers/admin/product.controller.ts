@@ -19,19 +19,6 @@ class AdminProductController {
     }
   };
 
-  public getrel = async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      const category = req.query.category;
-      const page: string = req.query.page as string;
-      const limit: string = (req.query.limit || '10') as string;
-      // const name: string = req.query.name as string;
-      const findAllProductData = await this.productService.find(page, limit, category);
-      res.status(200).json(findAllProductData);
-    } catch (error) {
-      next(error);
-    }
-  };
-
   public getProductById = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const productId: string = req.params.id;
@@ -78,6 +65,24 @@ class AdminProductController {
       next(error);
     }
   };
+
+  public relatedProducts = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const query = req.query;
+      const category :string = query.category as string
+      const page: string = req.query.page as string;
+      const limit: string = (req.query.limit || '10') as string;
+      const findrelatedProductData = await this.productService.findRelatedproducts(page, limit, query,category);
+      res.status(200).json(findrelatedProductData);
+      console.log("quuuuuery:",query);
+      
+    } catch (error) {
+      console.log("err:",error);
+      
+      next(error);
+    }
+  };
+
 
  
 }

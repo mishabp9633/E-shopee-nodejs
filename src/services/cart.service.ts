@@ -11,17 +11,6 @@ class CartService {
   
     public async findAllCarts(): Promise<Cart[]> {
       const carts: Cart[] = await this.cart.find()
-      .populate("userId",["username","email","phone"])
-      .populate("product",["images","price","name"])
-      .sort({createdAt:-1})
-      
-      return carts;
-    }
-
-    public async findCartsByToken(userId: string): Promise<Cart[]> {
-      const carts: Cart[] = await this.cart.find({ userId : userId })
-      .populate("userId",["username","email","phone"])
-      .populate("product",["images","price","name"])
       .sort({createdAt:-1})
       
       return carts;
@@ -30,9 +19,7 @@ class CartService {
     public async findCartById(cartId: string): Promise<Cart> {
       if (isEmpty(cartId)) throw new HttpException(400, "This is not a valid cartId.");
   
-      const findCart: Cart = await this.cart.findOne({ _id: cartId })
-      .populate("userId",["username","email","phone"])
-      .populate("product",["images","price","name"])
+      const findCart: Cart = await this.cart.findOne({ _id: cartId });
       if (!findCart) throw new HttpException(409, "This is not a valid cart.");
   
       return findCart; 

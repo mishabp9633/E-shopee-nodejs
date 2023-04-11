@@ -1,4 +1,5 @@
-  import { Product } from '@/interfaces/product.interface';
+import { Product } from '@/interfaces/product.interface';
+import { timeStamp } from 'console';
 import { model, Schema, Document, Types } from 'mongoose';
 
 export const productSchema: Schema = new Schema(
@@ -11,29 +12,31 @@ export const productSchema: Schema = new Schema(
     },
     stock: {
       type: Number,
-      default: 0
     },
-      purchasePrice: {
-          type: Number,
-          default: 0
-      },
     category: {
       type: String,
       // required: true,
     },
-    color:{
+    color: {
       type: String,
       // required: true,
     },
     price: {
       actualPrice: {
-        type: String,
-      },
-      previousPrice: {
-        type: String,
+        type: Number,
+        default: 0,
       },
       offerPrice: {
-        type: String,
+        type: Number,
+        default: 0,
+      },
+      offer: {
+        type: Number,
+        default: 0,
+      },
+      purchasePrice: {
+        type: Number,
+        default: 0,
       },
     },
     isActive: {
@@ -42,15 +45,16 @@ export const productSchema: Schema = new Schema(
     brand: {
       type: String,
     },
-    images: [{
-      public_id: {
-        type: String,
+    images: [
+      {
+        public_id: {
+          type: String,
+        },
+        url: {
+          type: String,
+        },
       },
-      url: {
-        type: String,
-      },
-    },
-  ]
+    ],
   },
   { timestamps: true },
 );
