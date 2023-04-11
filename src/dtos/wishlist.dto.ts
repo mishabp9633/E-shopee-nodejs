@@ -6,5 +6,5 @@ export class CreateWishlistDto {
     public userId?: string;
 
     @IsOptional()
-    public products?: Array<string>;
+    public products?: string[]
 }

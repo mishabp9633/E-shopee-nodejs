@@ -26,10 +26,15 @@ class WishlistService {
     }
   
     public async createWishlist(wishlistData: CreateWishlistDto, userId: string): Promise<any> {
-        wishlistData.userId = userId
-      const createWishlistData: Wishlist = await this.wishlist.create({ ...wishlistData });
-  
-      return createWishlistData;
+      const wishlist: Wishlist = await this.wishlist.findOne({ userId : userId })
+      if(!wishlist) {
+        const createWishlistData: Wishlist = await this.wishlist.create({ ...wishlistData, userId:userId });
+        return createWishlistData;
+      }else{
+        wishlist.products.push(wishlistData)
+        const updatedWishlistData: Wishlist = await wishlist.save();
+        return updatedWishlistData;
+      } 
     }
   
     public async updateWishlist(wishlistId: string, wishlistData: CreateWishlistDto): Promise<any> {  
@@ -40,7 +45,10 @@ class WishlistService {
       return updateWishlistById;
     }
   
-    public async deleteWishlist(wishlistId: string): Promise<Wishlist> {
+    public async deleteWishlist(productId: string): Promise<Wishlist> {
+      const wishlist: Wishlist = await this.wishlist.findById(productId);
+
+      const wishlistId: string = wishlist._id
       const deleteWishlistById: Wishlist = await this.wishlist.findByIdAndDelete(wishlistId);
       if (!deleteWishlistById) throw new HttpException(400, "The Data has not been found.")
   
