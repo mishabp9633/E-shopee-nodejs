@@ -1,5 +1,4 @@
   import { Product } from '@/interfaces/product.interface';
-import { timeStamp } from 'console';
 import { model, Schema, Document, Types } from 'mongoose';
 
 export const productSchema: Schema = new Schema(
@@ -12,11 +11,12 @@ export const productSchema: Schema = new Schema(
     },
     stock: {
       type: Number,
+      default: 0
+    },
       purchasePrice: {
           type: Number,
           default: 0
-      }
-    },
+      },
     category: {
       type: String,
       // required: true,
