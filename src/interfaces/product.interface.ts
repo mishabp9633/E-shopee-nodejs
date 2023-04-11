@@ -6,6 +6,7 @@ export interface Product extends Document {
   description?:string
   stock?: number;
   category?: string;
+  color?:string;
   price?: Price;
   isActive: Boolean;
   brand?: string;

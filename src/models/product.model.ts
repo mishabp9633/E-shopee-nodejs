@@ -19,7 +19,11 @@ export const productSchema: Schema = new Schema(
     },
     category: {
       type: String,
-      required: true,
+      // required: true,
+    },
+    color:{
+      type: String,
+      // required: true,
     },
     price: {
       actualPrice: {
