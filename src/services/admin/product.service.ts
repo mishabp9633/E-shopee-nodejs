@@ -34,6 +34,22 @@ class AdminProductService {
     return { Products, page, total };
   }
 
+  public async find(page: string, limit: string, category): Promise<{ Products: Product[]; total: number; page: string }> {
+    let queryData = {};
+
+    if (category) {
+      queryData['category'] = category
+    }
+
+    const Products: Product[] = await this.product
+      .find(queryData)
+      .sort({ createdAt: -1 })
+      .limit(toNumber(limit))
+      .skip((toNumber(page ? page : 1) - 1) * toNumber(limit));
+    const total = await this.product.find(queryData).countDocuments();
+    return { Products, page, total };
+  }
+
 
   public async createProduct(productData: CreateProductDto): Promise<any> {
     const createProductData: Product = await this.product.create({ ...productData });
