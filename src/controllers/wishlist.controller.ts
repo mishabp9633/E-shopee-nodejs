@@ -30,7 +30,7 @@ class WishlistController {
     public createWishlist = async (req: Request, res: Response, next: NextFunction) => {
       try {
         const user = req.body.user._id as string
-        const wishlistData: CreateWishlistDto = req.body;
+        const wishlistData: CreateWishlistDto = req.body.products;
         const createWishlistData: Wishlist = await this.wishlistService.createWishlist(wishlistData, user);
   
         res.status(200).json( createWishlistData );
