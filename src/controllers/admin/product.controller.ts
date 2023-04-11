@@ -66,6 +66,24 @@ class AdminProductController {
     }
   };
 
+  public relatedProducts = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const query = req.query;
+      const category :string = query.category as string
+      const page: string = req.query.page as string;
+      const limit: string = (req.query.limit || '10') as string;
+      const findrelatedProductData = await this.productService.findRelatedproducts(page, limit, query,category);
+      res.status(200).json(findrelatedProductData);
+      console.log("quuuuuery:",query);
+      
+    } catch (error) {
+      console.log("err:",error);
+      
+      next(error);
+    }
+  };
+
+
  
 }
 export default AdminProductController;

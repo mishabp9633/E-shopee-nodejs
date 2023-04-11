@@ -22,7 +22,7 @@ export interface Photo extends Document {
   
 
   export interface Price extends Document {
-    actualPrice: string;
-    previousPrice: string;
-    offerPrice: string;
+    actualPrice: number;
+    offerPrice: number;
+    offer: number;
   }
